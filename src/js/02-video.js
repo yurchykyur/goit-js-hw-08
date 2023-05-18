@@ -22,7 +22,7 @@ const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 /**
- *
+ * a function that keeps track of the player's time and calls the "writeCurrentTimeVideo" function with a delay
  */
 player.on('timeupdate', throttle(writeCurrentTimeVideo, 1000));
 
