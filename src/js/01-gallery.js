@@ -1,5 +1,6 @@
 // Завдання 1 - бібліотека SimpleLightbox
-// Виконуй це завдання у файлах 01-gallery.html і 01-gallery.js. Розбий його на декілька підзавдань:
+// Виконуй це завдання у файлах 01-gallery.html і 01-gallery.js.
+// Розбий його на декілька підзавдань:
 
 // Додай бібліотеку SimpleLightbox як залежність проекту,
 // використовуючи npm(посилання на CDN з твоєї минулої роботи більше не потрібне).
@@ -13,8 +14,8 @@
 // import "simplelightbox/dist/simple-lightbox.min.css";
 
 import { galleryItems } from './gallery-items.js';
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = {
   gallery: document.querySelector('.gallery'),
