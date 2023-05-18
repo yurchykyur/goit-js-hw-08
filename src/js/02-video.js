@@ -26,13 +26,11 @@ const iframe = document.querySelector('iframe');
 
     function writeCurrentTimeVideo() {
         player.getCurrentTime().then(function(seconds) {
-            console.log(seconds);
-            localStorage.setItem('videoplayer-current-time', String(seconds));
+        localStorage.setItem('videoplayer-current-time', String(seconds));
         })
     }
 
     window.onload = function() {
-        alert('Page loaded');
         player.setCurrentTime(Number(localStorage.getItem('videoplayer-current-time')))
     
     }
