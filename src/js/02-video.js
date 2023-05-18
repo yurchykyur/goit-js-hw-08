@@ -3,7 +3,6 @@
 // який буде зберігати поточний час відтворення відео у локальне сховище і,
 // після перезавантаження сторінки, продовжувати відтворювати відео з цього часу.
 
-
 // Виконуй це завдання у файлах 02-video.html і 02-video.js. Розбий його на декілька підзавдань:
 
 // Ознайомся з документацією бібліотеки Vimeo плеєра. https://github.com/vimeo/player.js/#vimeo-player-api
@@ -20,20 +19,28 @@ import throttle from 'lodash.throttle';
 
 const iframe = document.querySelector('iframe');
 
-    const player = new Player(iframe);
-    
-    player.on('timeupdate', throttle(writeCurrentTimeVideo, 1000 ));
+const player = new Player(iframe);
 
-    function writeCurrentTimeVideo() {
-        player.getCurrentTime().then(function(seconds) {
-        localStorage.setItem('videoplayer-current-time', String(seconds));
-        })
-    }
+/**
+ *
+ */
+player.on('timeupdate', throttle(writeCurrentTimeVideo, 1000));
 
-    window.onload = function() {
-        player.setCurrentTime(Number(localStorage.getItem('videoplayer-current-time')))
-    
-    }
+/**
+ * function that gets the current video playback time and writes its local storage to a variable 'videoplayer-current-time'
+ */
+function writeCurrentTimeVideo() {
+  player.getCurrentTime().then(function (seconds) {
+    localStorage.setItem('videoplayer-current-time', String(seconds));
+  });
+}
 
-
-
+/**
+ * a function that transmits to the video player the time value for starting playback from the local storage
+ * where the video preview stopped
+ */
+window.onload = function () {
+  player.setCurrentTime(
+    Number(localStorage.getItem('videoplayer-current-time'))
+  );
+};
