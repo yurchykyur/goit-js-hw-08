@@ -1,9 +1,3 @@
-// Add imports above this line
-import { galleryItems } from './gallery-items';
-// Change code below this line
-
-console.log(galleryItems);
-
 // Завдання 1 - бібліотека SimpleLightbox
 // Виконуй це завдання у файлах 01-gallery.html і 01-gallery.js. Розбий його на декілька підзавдань:
 
