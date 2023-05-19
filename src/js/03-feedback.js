@@ -2,18 +2,6 @@
 // HTML містить розмітку форми. Напиши скрипт, який буде зберігати значення полів у локальне сховище,
 // коли користувач щось друкує.
 
-// <form class="feedback-form" autocomplete="off">
-//   <label>
-//     Email
-//     <input type="email" name="email" autofocus />
-//   </label>
-//   <label>
-//     Message
-//     <textarea name="message" rows="8"></textarea>
-//   </label>
-//   <button type="submit">Submit</button>
-// </form>
-
 // Виконуй це завдання у файлах 03-feedback.html і 03-feedback.js. Розбий його на декілька підзавдань:
 
 // ++ Відстежуй на формі подію input, і щоразу записуй у локальне сховище об'єкт з полями email і message,
@@ -24,6 +12,7 @@
 // ++ а також виводь у консоль об'єкт з полями email, message та їхніми поточними значеннями.
 // Зроби так, щоб сховище оновлювалось не частіше, ніж раз на 500 мілісекунд.
 // ++ Для цього додай до проекту і використовуй бібліотеку lodash.throttle.
+
 
 import throttle from 'lodash.throttle';
 
@@ -36,12 +25,12 @@ const refs = {
 };
 
 const dataFeedbackForm = {
-  email: '1',
-  message: '1',
+  email: '',
+  message: '',
 };
 
 refs.form.addEventListener('submit', onSubmitForm);
-refs.input.addEventListener('input', onInputEmail);
+refs.input.addEventListener('input', throttle(onInputEmail, 500));
 refs.textarea.addEventListener('input', throttle(onInputMessage, 500));
 
 /**
@@ -49,8 +38,7 @@ refs.textarea.addEventListener('input', throttle(onInputMessage, 500));
  * @param {input} e , event
  */
 function onInputEmail(e) {
-  console.log(e.currentTarget.value);
-  dataFeedbackForm.email = e.currentTarget.value;
+  dataFeedbackForm.email = e.target.value;
   saveDataFormInLOcalStorage(FEEDBACK_FORM_STATE, dataFeedbackForm);
 }
 
@@ -59,8 +47,7 @@ function onInputEmail(e) {
  * @param {input} e , event
  */
 function onInputMessage(e) {
-  console.log(e.currentTarget.value);
-  dataFeedbackForm.message = e.currentTarget.value;
+  dataFeedbackForm.message = e.target.value;
   saveDataFormInLOcalStorage(FEEDBACK_FORM_STATE, dataFeedbackForm);
 }
 
@@ -95,15 +82,10 @@ function saveDataFormInLOcalStorage(key, value) {
  * If the data is available, the form fields are filled.
  */
 window.onload = function () {
-  console.log('i reload');
-
-  if (getDataFromLocalStorage(FEEDBACK_FORM_STATE)) {
-    console.log('we find data');
-    const obj = JSON.parse(localStorage.getItem(FEEDBACK_FORM_STATE));
+  let obj = getDataFromLocalStorage(FEEDBACK_FORM_STATE);
+  if (obj) {
     refs.input.value = obj.email;
     refs.textarea.value = obj.message;
-  } else {
-    console.log('we do not find data');
   }
 };
 
